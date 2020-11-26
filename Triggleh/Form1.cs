@@ -168,11 +168,33 @@ namespace Triggleh
 
         public string CharAnimTriggerKeyChar
         {
-            set { lbl_CHTriggerKey.Text = value; }
+            set { 
+                lbl_CHTriggerKey.Text = value;
+            }
             get { return lbl_CHTriggerKey.Text; }
         }
 
-        public int CharAnimTriggerKeyValue { get; set; }
+        private int keyValue = 0;
+        public int CharAnimTriggerKeyValue
+        {
+            set
+            {
+                keyValue = value;
+                manualChange = true;
+                if (CharAnimTriggerKeyChar == "midi")
+                {
+                    midiInput.Value = value;
+                }
+                else
+                {
+                    midiInput.Value = 0;
+                }
+                manualChange = false;
+            }
+            get {
+                return keyValue;
+            }
+        }
 
         public int Cooldown
         {
@@ -604,6 +626,28 @@ namespace Triggleh
         private void Tsmi_Exit_Click(object sender, EventArgs e)
         {
             Dispose(true);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        bool manualChange = false;
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            if (manualChange)
+                return;
+            presenter.SetMidiTrigger((int)midiInput.Value);
+            presenter.FormControls_ChangesMade();
+        }
+
+        private void numericUpDown1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (manualChange)
+                return;
+            presenter.SetMidiTrigger((int)midiInput.Value);
+            presenter.FormControls_ChangesMade();
         }
     }
 }

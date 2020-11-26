@@ -253,6 +253,12 @@ namespace Triggleh
             SaveTrigger();
         }
 
+        public void SetMidiTrigger(int keyvalue)
+        {
+            screen.CharAnimTriggerKeyChar = "midi";
+            screen.CharAnimTriggerKeyValue = keyvalue;
+        }
+
         public void Dgv_Triggers_CellClick(string name)
         {
             Trigger trigger = repository.GetTriggerByName(name);

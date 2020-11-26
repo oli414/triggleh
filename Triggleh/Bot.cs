@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
+using TobiasErichsen.teVirtualMIDI;
 
 namespace Triggleh
 {
@@ -21,8 +22,12 @@ namespace Triggleh
         public event EventHandler<BotDisconnectedArgs> BotDisconnected;
         public event EventHandler<BotTriggeredArgs> BotTriggered;
 
+        private TeVirtualMIDI midiController;
+
         public Bot()
         {
+            midiController = new TeVirtualMIDI("TwitchBot");
+
             ConnectionCredentials credentials = new ConnectionCredentials("justinfan42069", "password");
 
             client = new TwitchClient();
@@ -34,6 +39,7 @@ namespace Triggleh
 
             client.Connect();
         }
+
 
         // TWITCHLIB - for chat
 
@@ -171,7 +177,30 @@ namespace Triggleh
                 if ((matches == null || matches.Count == 0) && (hmatches == null || hmatches.Count == 0)) continue; // no keyword/command match
 
                 Console.WriteLine("matched!!");
-                SendKeystroke.Send(settings.Application, trigger.CharAnimTriggerKeyValue);
+                if (trigger.CharAnimTriggerKeyChar == "midi")
+                {
+                    if (trigger.CharAnimTriggerKeyValue > 127)
+                    {
+                        trigger.CharAnimTriggerKeyValue = 127;
+                    }
+
+                    Console.WriteLine("Sending midi message!!");
+                    byte[] dataOn = new byte[3];
+                    dataOn[0] = Convert.ToByte("10010000", 2);
+                    dataOn[1] = (byte)trigger.CharAnimTriggerKeyValue;
+                    dataOn[2] = 127;
+                    midiController.sendCommand(dataOn);
+
+                    byte[] dataOff = new byte[3];
+                    dataOff[0] = Convert.ToByte("10000000", 2);
+                    dataOff[1] = (byte)trigger.CharAnimTriggerKeyValue;
+                    dataOff[2] = 0;
+                    midiController.sendCommand(dataOff);
+                }
+                else
+                {
+                    SendKeystroke.Send(settings.Application, trigger.CharAnimTriggerKeyValue);
+                }
 
                 DateTime triggeredAt = DateTime.Now;
 
