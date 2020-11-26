@@ -11,6 +11,7 @@ namespace Triggleh
         void Register(FormPresenter FM);
         void InitialiseForm();
         string TriggerName { get; set; }
+        string RewardName { get; set; }
         bool BitsEnabled { get; set; }
         int BitsCondition { get; set; }
         bool BitsConditionEnabled { get; set; }
@@ -25,6 +26,8 @@ namespace Triggleh
         bool UserLevelEveryone { get; set; }
         bool UserLevelSubs { get; set; }
         bool UserLevelSubsEnabled { get; set; }
+        bool UserLevelVips { get; set; }
+        bool UserLevelVipsEnabled { get; set; }
         bool UserLevelMods { get; set; }
         bool UserLevelModsEnabled { get; set; }
         int AddKeyword(string keyword);
@@ -69,5 +72,10 @@ namespace Triggleh
         void ResetButtonVisible(bool showing);
 
         void ShowChangesMade(bool showing);
+
+        void EnableAsReward();
+        void DisableAsReward();
+
+        void ShowRewardNameHelp();
     }
 }

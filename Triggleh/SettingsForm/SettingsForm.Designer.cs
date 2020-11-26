@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            this.lbl_Username = new System.Windows.Forms.Label();
-            this.txt_Username = new System.Windows.Forms.TextBox();
+            this.lbl_Account = new System.Windows.Forms.Label();
             this.chk_LoggingEnabled = new System.Windows.Forms.CheckBox();
             this.btn_SaveSettings = new System.Windows.Forms.Button();
             this.cmb_Applications = new System.Windows.Forms.ComboBox();
@@ -41,32 +40,30 @@
             this.nud_GlobalCooldown = new System.Windows.Forms.NumericUpDown();
             this.btn_GlobalCooldownHelp = new System.Windows.Forms.Button();
             this.btn_ResetGlobalLastTriggered = new System.Windows.Forms.Button();
+            this.btn_Export = new System.Windows.Forms.Button();
+            this.sfd_Export = new System.Windows.Forms.SaveFileDialog();
+            this.btn_Import = new System.Windows.Forms.Button();
+            this.ofd_Import = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txt_Username = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nud_GlobalCooldown)).BeginInit();
             this.SuspendLayout();
             // 
-            // lbl_Username
+            // lbl_Account
             // 
-            this.lbl_Username.AutoSize = true;
-            this.lbl_Username.Location = new System.Drawing.Point(26, 83);
-            this.lbl_Username.Name = "lbl_Username";
-            this.lbl_Username.Size = new System.Drawing.Size(138, 23);
-            this.lbl_Username.TabIndex = 8;
-            this.lbl_Username.Text = "Twitch username";
-            // 
-            // txt_Username
-            // 
-            this.txt_Username.Location = new System.Drawing.Point(193, 80);
-            this.txt_Username.MaxLength = 25;
-            this.txt_Username.Name = "txt_Username";
-            this.txt_Username.Size = new System.Drawing.Size(262, 30);
-            this.txt_Username.TabIndex = 2;
+            this.lbl_Account.AutoSize = true;
+            this.lbl_Account.Location = new System.Drawing.Point(26, 83);
+            this.lbl_Account.Name = "lbl_Account";
+            this.lbl_Account.Size = new System.Drawing.Size(124, 23);
+            this.lbl_Account.TabIndex = 8;
+            this.lbl_Account.Text = "Twitch account";
             // 
             // chk_LoggingEnabled
             // 
             this.chk_LoggingEnabled.AutoSize = true;
             this.chk_LoggingEnabled.Checked = true;
             this.chk_LoggingEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_LoggingEnabled.Location = new System.Drawing.Point(30, 196);
+            this.chk_LoggingEnabled.Location = new System.Drawing.Point(30, 185);
             this.chk_LoggingEnabled.Name = "chk_LoggingEnabled";
             this.chk_LoggingEnabled.Size = new System.Drawing.Size(203, 27);
             this.chk_LoggingEnabled.TabIndex = 11;
@@ -75,7 +72,8 @@
             // 
             // btn_SaveSettings
             // 
-            this.btn_SaveSettings.Location = new System.Drawing.Point(357, 185);
+            this.btn_SaveSettings.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btn_SaveSettings.Location = new System.Drawing.Point(357, 214);
             this.btn_SaveSettings.Name = "btn_SaveSettings";
             this.btn_SaveSettings.Size = new System.Drawing.Size(98, 43);
             this.btn_SaveSettings.TabIndex = 5;
@@ -161,12 +159,71 @@
             this.btn_ResetGlobalLastTriggered.UseVisualStyleBackColor = true;
             this.btn_ResetGlobalLastTriggered.Click += new System.EventHandler(this.Btn_ResetGlobalLastTriggered_Click);
             // 
+            // btn_Export
+            // 
+            this.btn_Export.Location = new System.Drawing.Point(30, 231);
+            this.btn_Export.Name = "btn_Export";
+            this.btn_Export.Size = new System.Drawing.Size(89, 26);
+            this.btn_Export.TabIndex = 13;
+            this.btn_Export.Text = "Export";
+            this.btn_Export.UseVisualStyleBackColor = true;
+            this.btn_Export.Click += new System.EventHandler(this.Btn_Export_Click);
+            // 
+            // sfd_Export
+            // 
+            this.sfd_Export.DefaultExt = "json";
+            this.sfd_Export.FileName = "triggleh_export";
+            this.sfd_Export.Filter = "JSON files (*.json)|*.json";
+            this.sfd_Export.RestoreDirectory = true;
+            this.sfd_Export.Title = "Export triggers to file...";
+            // 
+            // btn_Import
+            // 
+            this.btn_Import.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btn_Import.Location = new System.Drawing.Point(125, 231);
+            this.btn_Import.Name = "btn_Import";
+            this.btn_Import.Size = new System.Drawing.Size(89, 26);
+            this.btn_Import.TabIndex = 14;
+            this.btn_Import.Text = "Import";
+            this.btn_Import.UseVisualStyleBackColor = true;
+            this.btn_Import.Click += new System.EventHandler(this.Btn_Import_Click);
+            // 
+            // ofd_Import
+            // 
+            this.ofd_Import.DefaultExt = "json";
+            this.ofd_Import.Filter = "JSON files (*.json)|*.json";
+            this.ofd_Import.Title = "Import triggers from file...";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(357, 80);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(98, 26);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "Login";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Btn_Login_Click);
+            // 
+            // txt_Username
+            // 
+            this.txt_Username.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.txt_Username.Enabled = false;
+            this.txt_Username.Location = new System.Drawing.Point(193, 80);
+            this.txt_Username.MaxLength = 25;
+            this.txt_Username.Name = "txt_Username";
+            this.txt_Username.ReadOnly = true;
+            this.txt_Username.Size = new System.Drawing.Size(156, 30);
+            this.txt_Username.TabIndex = 2;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btn_SaveSettings;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(487, 256);
+            this.ClientSize = new System.Drawing.Size(487, 274);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_Import);
+            this.Controls.Add(this.btn_Export);
             this.Controls.Add(this.btn_ResetGlobalLastTriggered);
             this.Controls.Add(this.btn_GlobalCooldownHelp);
             this.Controls.Add(this.cmb_GlobalCooldownUnit);
@@ -178,7 +235,7 @@
             this.Controls.Add(this.btn_SaveSettings);
             this.Controls.Add(this.chk_LoggingEnabled);
             this.Controls.Add(this.txt_Username);
-            this.Controls.Add(this.lbl_Username);
+            this.Controls.Add(this.lbl_Account);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -195,8 +252,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lbl_Username;
-        private System.Windows.Forms.TextBox txt_Username;
+        private System.Windows.Forms.Label lbl_Account;
         private System.Windows.Forms.CheckBox chk_LoggingEnabled;
         private System.Windows.Forms.Button btn_SaveSettings;
         private System.Windows.Forms.ComboBox cmb_Applications;
@@ -207,5 +263,11 @@
         private System.Windows.Forms.NumericUpDown nud_GlobalCooldown;
         private System.Windows.Forms.Button btn_GlobalCooldownHelp;
         private System.Windows.Forms.Button btn_ResetGlobalLastTriggered;
+        private System.Windows.Forms.Button btn_Export;
+        private System.Windows.Forms.SaveFileDialog sfd_Export;
+        private System.Windows.Forms.Button btn_Import;
+        private System.Windows.Forms.OpenFileDialog ofd_Import;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txt_Username;
     }
 }

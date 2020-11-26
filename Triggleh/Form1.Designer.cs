@@ -37,6 +37,10 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.midiInput = new System.Windows.Forms.NumericUpDown();
             this.midiLabel = new System.Windows.Forms.Label();
+            this.btn_RewardName = new System.Windows.Forms.Button();
+            this.chk_ULMods = new System.Windows.Forms.CheckBox();
+            this.txt_RewardName = new System.Windows.Forms.TextBox();
+            this.lbl_RewardName = new System.Windows.Forms.Label();
             this.lbl_UnsavedChanges = new System.Windows.Forms.Label();
             this.btn_ResetLastTriggered = new System.Windows.Forms.Button();
             this.lbl_LastTriggered = new System.Windows.Forms.Label();
@@ -58,7 +62,7 @@
             this.btn_AddKeyword = new System.Windows.Forms.Button();
             this.chk_Bits = new System.Windows.Forms.CheckBox();
             this.cmb_Bits = new System.Windows.Forms.ComboBox();
-            this.chk_ULMods = new System.Windows.Forms.CheckBox();
+            this.chk_ULVips = new System.Windows.Forms.CheckBox();
             this.chk_ULSubs = new System.Windows.Forms.CheckBox();
             this.chk_ULEveryone = new System.Windows.Forms.CheckBox();
             this.txt_TriggerName = new System.Windows.Forms.TextBox();
@@ -144,8 +148,15 @@
             // 
             // tabPage1
             // 
+<<<<<<< HEAD
             this.tabPage1.Controls.Add(this.midiInput);
             this.tabPage1.Controls.Add(this.midiLabel);
+=======
+            this.tabPage1.Controls.Add(this.btn_RewardName);
+            this.tabPage1.Controls.Add(this.chk_ULMods);
+            this.tabPage1.Controls.Add(this.txt_RewardName);
+            this.tabPage1.Controls.Add(this.lbl_RewardName);
+>>>>>>> upstream/master
             this.tabPage1.Controls.Add(this.lbl_UnsavedChanges);
             this.tabPage1.Controls.Add(this.btn_ResetLastTriggered);
             this.tabPage1.Controls.Add(this.lbl_LastTriggered);
@@ -167,7 +178,7 @@
             this.tabPage1.Controls.Add(this.btn_AddKeyword);
             this.tabPage1.Controls.Add(this.chk_Bits);
             this.tabPage1.Controls.Add(this.cmb_Bits);
-            this.tabPage1.Controls.Add(this.chk_ULMods);
+            this.tabPage1.Controls.Add(this.chk_ULVips);
             this.tabPage1.Controls.Add(this.chk_ULSubs);
             this.tabPage1.Controls.Add(this.chk_ULEveryone);
             this.tabPage1.Controls.Add(this.txt_TriggerName);
@@ -184,6 +195,7 @@
             this.tabPage1.Text = "Details";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+<<<<<<< HEAD
             // midiInput
             // 
             this.midiInput.Location = new System.Drawing.Point(405, 270);
@@ -207,6 +219,50 @@
             this.midiLabel.TabIndex = 20;
             this.midiLabel.Text = "Midi Key:";
             this.midiLabel.Click += new System.EventHandler(this.label1_Click);
+=======
+            // btn_RewardName
+            // 
+            this.btn_RewardName.Location = new System.Drawing.Point(618, 30);
+            this.btn_RewardName.Name = "btn_RewardName";
+            this.btn_RewardName.Size = new System.Drawing.Size(27, 25);
+            this.btn_RewardName.TabIndex = 22;
+            this.btn_RewardName.Text = "?";
+            this.btn_RewardName.UseVisualStyleBackColor = true;
+            this.btn_RewardName.Click += new System.EventHandler(this.Btn_RewardName_Click);
+            // 
+            // chk_ULMods
+            // 
+            this.chk_ULMods.AutoSize = true;
+            this.chk_ULMods.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.chk_ULMods.Location = new System.Drawing.Point(462, 118);
+            this.chk_ULMods.Name = "chk_ULMods";
+            this.chk_ULMods.Size = new System.Drawing.Size(74, 27);
+            this.chk_ULMods.TabIndex = 12;
+            this.chk_ULMods.Text = "Mods";
+            this.chk_ULMods.UseVisualStyleBackColor = true;
+            this.chk_ULMods.CheckedChanged += new System.EventHandler(this.FormControls_ChangesMade);
+            // 
+            // txt_RewardName
+            // 
+            this.txt_RewardName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txt_RewardName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            this.txt_RewardName.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txt_RewardName.Location = new System.Drawing.Point(447, 30);
+            this.txt_RewardName.MaxLength = 45;
+            this.txt_RewardName.Name = "txt_RewardName";
+            this.txt_RewardName.Size = new System.Drawing.Size(165, 30);
+            this.txt_RewardName.TabIndex = 4;
+            this.txt_RewardName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_RewardName_KeyUp);
+            // 
+            // lbl_RewardName
+            // 
+            this.lbl_RewardName.AutoSize = true;
+            this.lbl_RewardName.Location = new System.Drawing.Point(375, 31);
+            this.lbl_RewardName.Name = "lbl_RewardName";
+            this.lbl_RewardName.Size = new System.Drawing.Size(66, 23);
+            this.lbl_RewardName.TabIndex = 20;
+            this.lbl_RewardName.Text = "Reward";
+>>>>>>> upstream/master
             // 
             // lbl_UnsavedChanges
             // 
@@ -225,7 +281,7 @@
             this.btn_ResetLastTriggered.Location = new System.Drawing.Point(363, 235);
             this.btn_ResetLastTriggered.Name = "btn_ResetLastTriggered";
             this.btn_ResetLastTriggered.Size = new System.Drawing.Size(74, 23);
-            this.btn_ResetLastTriggered.TabIndex = 17;
+            this.btn_ResetLastTriggered.TabIndex = 19;
             this.btn_ResetLastTriggered.Text = "Reset";
             this.btn_ResetLastTriggered.UseVisualStyleBackColor = true;
             this.btn_ResetLastTriggered.Click += new System.EventHandler(this.Btn_ResetLastTriggered_Click);
@@ -261,8 +317,13 @@
             "Hours"});
             this.cmb_CooldownUnit.Location = new System.Drawing.Point(224, 205);
             this.cmb_CooldownUnit.Name = "cmb_CooldownUnit";
+<<<<<<< HEAD
             this.cmb_CooldownUnit.Size = new System.Drawing.Size(75, 25);
             this.cmb_CooldownUnit.TabIndex = 16;
+=======
+            this.cmb_CooldownUnit.Size = new System.Drawing.Size(75, 31);
+            this.cmb_CooldownUnit.TabIndex = 18;
+>>>>>>> upstream/master
             this.cmb_CooldownUnit.SelectedIndexChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
             // lbl_Cooldown
@@ -278,8 +339,13 @@
             // 
             this.nud_Cooldown.Location = new System.Drawing.Point(143, 205);
             this.nud_Cooldown.Name = "nud_Cooldown";
+<<<<<<< HEAD
             this.nud_Cooldown.Size = new System.Drawing.Size(75, 25);
             this.nud_Cooldown.TabIndex = 15;
+=======
+            this.nud_Cooldown.Size = new System.Drawing.Size(75, 30);
+            this.nud_Cooldown.TabIndex = 17;
+>>>>>>> upstream/master
             this.nud_Cooldown.Value = new decimal(new int[] {
             30,
             0,
@@ -303,7 +369,7 @@
             this.btn_SaveTrigger.Location = new System.Drawing.Point(538, 298);
             this.btn_SaveTrigger.Name = "btn_SaveTrigger";
             this.btn_SaveTrigger.Size = new System.Drawing.Size(107, 33);
-            this.btn_SaveTrigger.TabIndex = 19;
+            this.btn_SaveTrigger.TabIndex = 21;
             this.btn_SaveTrigger.Text = "Save";
             this.btn_SaveTrigger.UseVisualStyleBackColor = true;
             this.btn_SaveTrigger.Click += new System.EventHandler(this.Btn_SaveTrigger_Click);
@@ -314,7 +380,7 @@
             this.btn_RecordTrigger.Location = new System.Drawing.Point(143, 266);
             this.btn_RecordTrigger.Name = "btn_RecordTrigger";
             this.btn_RecordTrigger.Size = new System.Drawing.Size(101, 31);
-            this.btn_RecordTrigger.TabIndex = 18;
+            this.btn_RecordTrigger.TabIndex = 20;
             this.btn_RecordTrigger.Text = "Record";
             this.btn_RecordTrigger.UseVisualStyleBackColor = true;
             this.btn_RecordTrigger.Click += new System.EventHandler(this.Btn_RecordTrigger_Click);
@@ -341,8 +407,13 @@
             this.nud_Bits2.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.nud_Bits2.Location = new System.Drawing.Point(356, 74);
             this.nud_Bits2.Name = "nud_Bits2";
+<<<<<<< HEAD
             this.nud_Bits2.Size = new System.Drawing.Size(64, 25);
             this.nud_Bits2.TabIndex = 7;
+=======
+            this.nud_Bits2.Size = new System.Drawing.Size(64, 30);
+            this.nud_Bits2.TabIndex = 8;
+>>>>>>> upstream/master
             this.nud_Bits2.Value = new decimal(new int[] {
             100,
             0,
@@ -376,8 +447,13 @@
             this.nud_Bits1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.nud_Bits1.Location = new System.Drawing.Point(250, 73);
             this.nud_Bits1.Name = "nud_Bits1";
+<<<<<<< HEAD
             this.nud_Bits1.Size = new System.Drawing.Size(64, 25);
             this.nud_Bits1.TabIndex = 6;
+=======
+            this.nud_Bits1.Size = new System.Drawing.Size(64, 30);
+            this.nud_Bits1.TabIndex = 7;
+>>>>>>> upstream/master
             this.nud_Bits1.Value = new decimal(new int[] {
             100,
             0,
@@ -388,11 +464,18 @@
             // 
             // txt_Keywords
             // 
+            this.txt_Keywords.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txt_Keywords.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
             this.txt_Keywords.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_Keywords.Location = new System.Drawing.Point(143, 160);
             this.txt_Keywords.Name = "txt_Keywords";
+<<<<<<< HEAD
             this.txt_Keywords.Size = new System.Drawing.Size(207, 25);
             this.txt_Keywords.TabIndex = 11;
+=======
+            this.txt_Keywords.Size = new System.Drawing.Size(207, 30);
+            this.txt_Keywords.TabIndex = 13;
+>>>>>>> upstream/master
             this.txt_Keywords.Enter += new System.EventHandler(this.Txt_Keywords_Enter);
             // 
             // btn_RemoveKeyword
@@ -401,7 +484,7 @@
             this.btn_RemoveKeyword.Location = new System.Drawing.Point(447, 160);
             this.btn_RemoveKeyword.Name = "btn_RemoveKeyword";
             this.btn_RemoveKeyword.Size = new System.Drawing.Size(85, 25);
-            this.btn_RemoveKeyword.TabIndex = 13;
+            this.btn_RemoveKeyword.TabIndex = 15;
             this.btn_RemoveKeyword.Text = "Remove";
             this.btn_RemoveKeyword.UseVisualStyleBackColor = true;
             this.btn_RemoveKeyword.Click += new System.EventHandler(this.Btn_RemoveKeyword_Click);
@@ -412,7 +495,7 @@
             this.btn_AddKeyword.Location = new System.Drawing.Point(356, 160);
             this.btn_AddKeyword.Name = "btn_AddKeyword";
             this.btn_AddKeyword.Size = new System.Drawing.Size(85, 25);
-            this.btn_AddKeyword.TabIndex = 12;
+            this.btn_AddKeyword.TabIndex = 14;
             this.btn_AddKeyword.Text = "Add";
             this.btn_AddKeyword.UseVisualStyleBackColor = true;
             this.btn_AddKeyword.Click += new System.EventHandler(this.Btn_AddKeyword_Click);
@@ -423,8 +506,13 @@
             this.chk_Bits.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.chk_Bits.Location = new System.Drawing.Point(143, 80);
             this.chk_Bits.Name = "chk_Bits";
+<<<<<<< HEAD
             this.chk_Bits.Size = new System.Drawing.Size(15, 14);
             this.chk_Bits.TabIndex = 4;
+=======
+            this.chk_Bits.Size = new System.Drawing.Size(18, 17);
+            this.chk_Bits.TabIndex = 5;
+>>>>>>> upstream/master
             this.chk_Bits.UseVisualStyleBackColor = true;
             this.chk_Bits.CheckedChanged += new System.EventHandler(this.Chk_Bits_CheckedChanged);
             // 
@@ -440,12 +528,18 @@
             "Between"});
             this.cmb_Bits.Location = new System.Drawing.Point(167, 73);
             this.cmb_Bits.Name = "cmb_Bits";
+<<<<<<< HEAD
             this.cmb_Bits.Size = new System.Drawing.Size(77, 25);
             this.cmb_Bits.TabIndex = 5;
+=======
+            this.cmb_Bits.Size = new System.Drawing.Size(77, 31);
+            this.cmb_Bits.TabIndex = 6;
+>>>>>>> upstream/master
             this.cmb_Bits.SelectedIndexChanged += new System.EventHandler(this.Cmb_Bits_SelectedIndexChanged);
             // 
-            // chk_ULMods
+            // chk_ULVips
             // 
+<<<<<<< HEAD
             this.chk_ULMods.AutoSize = true;
             this.chk_ULMods.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.chk_ULMods.Location = new System.Drawing.Point(363, 118);
@@ -455,6 +549,17 @@
             this.chk_ULMods.Text = "Mods";
             this.chk_ULMods.UseVisualStyleBackColor = true;
             this.chk_ULMods.CheckedChanged += new System.EventHandler(this.FormControls_ChangesMade);
+=======
+            this.chk_ULVips.AutoSize = true;
+            this.chk_ULVips.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.chk_ULVips.Location = new System.Drawing.Point(363, 118);
+            this.chk_ULVips.Name = "chk_ULVips";
+            this.chk_ULVips.Size = new System.Drawing.Size(65, 27);
+            this.chk_ULVips.TabIndex = 11;
+            this.chk_ULVips.Text = "VIPs";
+            this.chk_ULVips.UseVisualStyleBackColor = true;
+            this.chk_ULVips.CheckedChanged += new System.EventHandler(this.FormControls_ChangesMade);
+>>>>>>> upstream/master
             // 
             // chk_ULSubs
             // 
@@ -462,8 +567,13 @@
             this.chk_ULSubs.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.chk_ULSubs.Location = new System.Drawing.Point(266, 118);
             this.chk_ULSubs.Name = "chk_ULSubs";
+<<<<<<< HEAD
             this.chk_ULSubs.Size = new System.Drawing.Size(57, 23);
             this.chk_ULSubs.TabIndex = 9;
+=======
+            this.chk_ULSubs.Size = new System.Drawing.Size(68, 27);
+            this.chk_ULSubs.TabIndex = 10;
+>>>>>>> upstream/master
             this.chk_ULSubs.Text = "Subs";
             this.chk_ULSubs.UseVisualStyleBackColor = true;
             this.chk_ULSubs.CheckedChanged += new System.EventHandler(this.FormControls_ChangesMade);
@@ -474,18 +584,29 @@
             this.chk_ULEveryone.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.chk_ULEveryone.Location = new System.Drawing.Point(143, 118);
             this.chk_ULEveryone.Name = "chk_ULEveryone";
+<<<<<<< HEAD
             this.chk_ULEveryone.Size = new System.Drawing.Size(84, 23);
             this.chk_ULEveryone.TabIndex = 8;
+=======
+            this.chk_ULEveryone.Size = new System.Drawing.Size(101, 27);
+            this.chk_ULEveryone.TabIndex = 9;
+>>>>>>> upstream/master
             this.chk_ULEveryone.Text = "Everyone";
             this.chk_ULEveryone.UseVisualStyleBackColor = true;
             this.chk_ULEveryone.CheckedChanged += new System.EventHandler(this.Chk_ULEveryone_CheckedChanged);
             // 
             // txt_TriggerName
             // 
+            this.txt_TriggerName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txt_TriggerName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
             this.txt_TriggerName.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txt_TriggerName.Location = new System.Drawing.Point(143, 30);
             this.txt_TriggerName.Name = "txt_TriggerName";
+<<<<<<< HEAD
             this.txt_TriggerName.Size = new System.Drawing.Size(301, 25);
+=======
+            this.txt_TriggerName.Size = new System.Drawing.Size(207, 30);
+>>>>>>> upstream/master
             this.txt_TriggerName.TabIndex = 3;
             this.txt_TriggerName.TextChanged += new System.EventHandler(this.FormControls_ChangesMade);
             // 
@@ -495,8 +616,13 @@
             this.lst_Keywords.ItemHeight = 17;
             this.lst_Keywords.Location = new System.Drawing.Point(538, 160);
             this.lst_Keywords.Name = "lst_Keywords";
+<<<<<<< HEAD
             this.lst_Keywords.Size = new System.Drawing.Size(107, 72);
             this.lst_Keywords.TabIndex = 14;
+=======
+            this.lst_Keywords.Size = new System.Drawing.Size(107, 50);
+            this.lst_Keywords.TabIndex = 16;
+>>>>>>> upstream/master
             // 
             // lbl_Keywords
             // 
@@ -540,7 +666,7 @@
             this.btn_RemoveTrigger.Location = new System.Drawing.Point(12, 395);
             this.btn_RemoveTrigger.Name = "btn_RemoveTrigger";
             this.btn_RemoveTrigger.Size = new System.Drawing.Size(107, 43);
-            this.btn_RemoveTrigger.TabIndex = 20;
+            this.btn_RemoveTrigger.TabIndex = 22;
             this.btn_RemoveTrigger.Text = "-";
             this.btn_RemoveTrigger.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_RemoveTrigger.UseVisualStyleBackColor = true;
@@ -560,7 +686,7 @@
             this.btn_Refresh.Location = new System.Drawing.Point(238, 395);
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(82, 43);
-            this.btn_Refresh.TabIndex = 21;
+            this.btn_Refresh.TabIndex = 23;
             this.btn_Refresh.Text = "Refresh";
             this.btn_Refresh.UseVisualStyleBackColor = true;
             this.btn_Refresh.Click += new System.EventHandler(this.Btn_Refresh_Click);
@@ -570,7 +696,7 @@
             this.btn_Settings.Location = new System.Drawing.Point(835, 395);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(82, 43);
-            this.btn_Settings.TabIndex = 22;
+            this.btn_Settings.TabIndex = 24;
             this.btn_Settings.Text = "Settings";
             this.btn_Settings.UseVisualStyleBackColor = true;
             this.btn_Settings.Click += new System.EventHandler(this.Btn_Settings_Click);
@@ -648,10 +774,12 @@
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Triggleh v1.2 by thefyrewire (@MikeyHay)";
+            this.Text = "Triggleh v1.3.1 by thefyrewire (@MikeyHay)";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Triggers)).EndInit();
             this.tab_TriggerDetails.ResumeLayout(false);
@@ -684,7 +812,7 @@
         private System.Windows.Forms.Button btn_AddKeyword;
         private System.Windows.Forms.CheckBox chk_Bits;
         private System.Windows.Forms.ComboBox cmb_Bits;
-        private System.Windows.Forms.CheckBox chk_ULMods;
+        private System.Windows.Forms.CheckBox chk_ULVips;
         private System.Windows.Forms.CheckBox chk_ULSubs;
         private System.Windows.Forms.CheckBox chk_ULEveryone;
         private System.Windows.Forms.TextBox txt_TriggerName;
@@ -716,8 +844,15 @@
         private System.Windows.Forms.ToolStripMenuItem tsmi_Exit;
         private System.Windows.Forms.ToolStripMenuItem tsmi_CazzTrigControlPanel;
         private System.Windows.Forms.ToolStripSeparator tss_1;
+<<<<<<< HEAD
         private System.Windows.Forms.Label midiLabel;
         private System.Windows.Forms.NumericUpDown midiInput;
+=======
+        private System.Windows.Forms.TextBox txt_RewardName;
+        private System.Windows.Forms.Label lbl_RewardName;
+        private System.Windows.Forms.CheckBox chk_ULMods;
+        private System.Windows.Forms.Button btn_RewardName;
+>>>>>>> upstream/master
     }
 }
 

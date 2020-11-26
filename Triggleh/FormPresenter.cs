@@ -47,11 +47,15 @@ namespace Triggleh
                 screen.ResetDetails();
             }
         }
+        public void ForceUpdateView()
+        {
+            UpdateView();
+        }
 
         public void LoadFromSettings()
         {
             Setting settings = repository.LoadSettings();
-            if (settings == null || settings.Username.Length == 0)
+            if (settings == null || settings.Username == null || settings.Username.Length == 0 || settings.UserID == null)
             {
                 bot.LeaveAllChannels("");
                 screen.RefreshCharAnimStatus();
@@ -75,6 +79,7 @@ namespace Triggleh
             else
             {
                 bot.JoinChannel(settings.Username);
+                bot.ConnectToPubSub(settings.UserID);
             }
             
         }
@@ -118,14 +123,14 @@ namespace Triggleh
             }
             else screen.ShowError("bits", false);
 
-            if (!screen.UserLevelEveryone && !screen.UserLevelSubs && !screen.UserLevelMods)
+            if (!screen.UserLevelEveryone && !screen.UserLevelSubs && !screen.UserLevelVips && !screen.UserLevelMods)
             {
                 screen.ShowError("userlevel", true);
                 valid = false;
             }
             else screen.ShowError("userlevel", false);
 
-            if (screen.GetKeywords().Length <= 2 && screen.BitsAmount1 == 0) // []
+            if (screen.GetKeywords() == "[]" && screen.BitsAmount1 == 0 && String.IsNullOrEmpty(screen.RewardName))
             {
                 screen.ShowValidationError(true);
                 valid = false;
@@ -138,6 +143,13 @@ namespace Triggleh
                 valid = false;
             }
             else screen.ShowError("chtrigger", false);
+
+            if (screen.RewardName.Length > 45)
+            {
+                screen.ShowError("rewardname", true);
+                valid = false;
+            }
+            else screen.ShowError("rewardname", false);
 
             return valid;
         }
@@ -153,12 +165,14 @@ namespace Triggleh
                 BitsAmount2 = screen.BitsAmount2,
                 UserLevelEveryone = screen.UserLevelEveryone,
                 UserLevelSubs = screen.UserLevelSubs,
+                UserLevelVips = screen.UserLevelVips,
                 UserLevelMods = screen.UserLevelMods,
                 Keywords = screen.GetKeywords(),
                 CharAnimTriggerKeyChar = screen.CharAnimTriggerKeyChar,
                 CharAnimTriggerKeyValue = screen.CharAnimTriggerKeyValue,
                 Cooldown = screen.Cooldown,
-                CooldownUnit = screen.CooldownUnit
+                CooldownUnit = screen.CooldownUnit,
+                RewardName = screen.RewardName.Trim()
             };
 
             Trigger triggerExists = repository.GetTriggerByName(screen.TriggerName.Trim());
@@ -309,5 +323,20 @@ namespace Triggleh
         {
             screen.NotifyIconVisible = false;
         }*/
+
+        public void Txt_RewardName_KeyUp()
+        {
+            if (!String.IsNullOrEmpty(screen.RewardName.Trim()))
+                screen.EnableAsReward();
+            else
+                screen.DisableAsReward();
+
+            screen.ShowChangesMade(true);
+        }
+
+        public void Btn_RewardName_Click()
+        {
+            screen.ShowRewardNameHelp();
+        }
     }
 }

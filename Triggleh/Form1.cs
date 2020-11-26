@@ -36,6 +36,12 @@ namespace Triggleh
             get { return txt_TriggerName.Text; }
         }
 
+        public string RewardName
+        {
+            set { txt_RewardName.Text = value; }
+            get { return txt_RewardName.Text; }
+        }
+
         public bool BitsEnabled
         {
             set { chk_Bits.Checked = value; }
@@ -105,6 +111,17 @@ namespace Triggleh
         {
             set { chk_ULSubs.Enabled = value; }
             get { return chk_ULSubs.Enabled; }
+        }
+
+        public bool UserLevelVips
+        {
+            set { chk_ULVips.Checked = value; }
+            get { return chk_ULVips.Checked; }
+        }
+        public bool UserLevelVipsEnabled
+        {
+            set { chk_ULVips.Enabled = value; }
+            get { return chk_ULVips.Enabled; }
         }
 
         public bool UserLevelMods
@@ -231,9 +248,12 @@ namespace Triggleh
             CharAnimTriggerKeyChar = "None";
             CharAnimTriggerKeyValue = -1;
             Cooldown = 30;
-            CooldownUnit = 0;
+            CooldownUnit = (int) CooldownUnits.Seconds;
+            RewardName = "";
             LastTriggered = "Never";
             ResetButtonVisible(false);
+
+            DisableAsReward();
 
             ShowChangesMade(false);
         }
@@ -262,6 +282,8 @@ namespace Triggleh
         {
             UserLevelSubs = false;
             UserLevelSubsEnabled = allowed;
+            UserLevelVips = false;
+            UserLevelVipsEnabled = allowed;
             UserLevelMods = false;
             UserLevelModsEnabled = allowed;
         }
@@ -319,6 +341,7 @@ namespace Triggleh
             UserLevelEveryone = trigger.UserLevelEveryone;
             AllowSubsMods(!trigger.UserLevelEveryone);
             UserLevelSubs = trigger.UserLevelSubs;
+            UserLevelVips = trigger.UserLevelVips;
             UserLevelMods = trigger.UserLevelMods;
 
             ClearKeywords();
@@ -331,7 +354,13 @@ namespace Triggleh
             Cooldown = trigger.Cooldown;
             CooldownUnit = trigger.CooldownUnit;
             LastTriggered = (trigger.LastTriggered == DateTime.MinValue) ? "Never" : trigger.LastTriggered.ToString();
+            RewardName = trigger.RewardName;
             ResetButtonVisible(trigger.LastTriggered != DateTime.MinValue);
+
+            if (!String.IsNullOrEmpty(RewardName))
+                EnableAsReward();
+            else
+                DisableAsReward();
 
             ShowChangesMade(false);
         }
@@ -377,6 +406,9 @@ namespace Triggleh
                     break;
                 case "chat":
                     lbl = lbl_ChatStatus;
+                    break;
+                case "rewardname":
+                    lbl = lbl_RewardName;
                     break;
             }
 
@@ -425,9 +457,24 @@ namespace Triggleh
         {
             SettingsForm f1 = new SettingsForm();
             new SettingsPresenter(f1);
-            f1.ShowDialog();
-            presenter.LoadFromSettings();
+
+            if (f1.ShowDialog() != DialogResult.OK)
+                return;
+
+            if (f1.connectToChat)
+            {
+                Console.WriteLine("Understood, I'm going to connect to chat + PubSub now");
+                presenter.LoadFromSettings();
+            }
+            else Console.WriteLine("Settings saved... but wasn't told to reconnect to chat.");
+
             RefreshCharAnimStatus();
+
+            if (f1.refreshView)
+            {
+                Console.WriteLine("Force updating view");
+                presenter.ForceUpdateView();
+            }
         }
 
         public void SetProfilePicture(string url)
@@ -502,6 +549,37 @@ namespace Triggleh
         public void ShowContextMenu()
         {
             cms_Triggleh.Show();
+        }
+
+        public void EnableAsReward()
+        {
+            BitsEnabled = false;
+            chk_Bits.Enabled = false;
+
+            UserLevelEveryone = true;
+            chk_ULEveryone.Enabled = false;
+
+            Cooldown = 0;
+            CooldownUnit = (int) CooldownUnits.Seconds;
+            nud_Cooldown.Enabled = false;
+            cmb_CooldownUnit.Enabled = false;
+        }
+
+        public void DisableAsReward()
+        {
+            chk_Bits.Enabled = true;
+
+            chk_ULEveryone.Enabled = true;
+
+            nud_Cooldown.Enabled = true;
+            cmb_CooldownUnit.Enabled = true;
+        }
+
+        public void ShowRewardNameHelp()
+        {
+            MessageBox.Show("Enter the case-sensitive Twitch reward name here. When this reward is redeemed, the trigger will be activated.\n\n" +
+                "As rewards can be redeemed by anyone who has enough points, permission and cooldown options are disabled. Twitch offers inbuilt cooldown functionality under the reward settings.\n\n" +
+                "Keywords can still be entered, in case the reward accepts a text input.", "Reward name", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
 
         private void Chk_Bits_CheckedChanged(object sender, EventArgs e)
@@ -648,6 +726,26 @@ namespace Triggleh
                 return;
             presenter.SetMidiTrigger((int)midiInput.Value);
             presenter.FormControls_ChangesMade();
+        private void Txt_RewardName_KeyUp(object sender, KeyEventArgs e)
+        {
+            presenter.Txt_RewardName_KeyUp();
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.S)
+            {
+                presenter.Btn_SaveTrigger_Click();
+            }
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.N)
+            {
+                presenter.Btn_AddTrigger_Click();
+            }
+        }
+
+        private void Btn_RewardName_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_RewardName_Click();
         }
     }
 }

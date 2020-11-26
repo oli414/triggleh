@@ -7,12 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Triggleh
 {
     public partial class SettingsForm : Form, ISettingsGUI
     {
         private SettingsPresenter presenter;
+        public bool refreshView = false;
+        public bool connectToChat = false;
+
+        private string userID;
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -37,6 +43,12 @@ namespace Triggleh
         {
             get { return txt_Username.Text; }
             set { txt_Username.Text = value; }
+        }
+
+        public string UserID
+        {
+            get { return userID; }
+            set { userID = value; }
         }
 
         public string ProfilePicture
@@ -71,8 +83,8 @@ namespace Triggleh
 
         public void ShowError(bool showing)
         {
-            if (showing) lbl_Username.ForeColor = Color.Red;
-            else lbl_Username.ForeColor = SystemColors.ControlText;
+            if (showing) lbl_Account.ForeColor = Color.Red;
+            else lbl_Account.ForeColor = SystemColors.ControlText;
         }
 
         public void CloseForm()
@@ -100,6 +112,38 @@ namespace Triggleh
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        public void ShowExportFileDialog(string data)
+        {
+            sfd_Export.FileName = "triggleh_export_" + DateTime.Now.ToString("yyyyMMdd");
+            if (sfd_Export.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(sfd_Export.FileName, data);
+            }
+        }
+
+        public string ShowImportFileDialog()
+        {
+            string data = "[]";
+
+            if (ofd_Import.ShowDialog() == DialogResult.OK)
+            {
+                data = File.ReadAllText(ofd_Import.FileName);
+            }
+
+            return data;
+        }
+
+        public string ShowImportConfirmation()
+        {
+            DialogResult dialogResult = MessageBox.Show("Would you like to replace all existing triggers?\n\nSelecting no will merge in new triggers.", "Importing triggers...", MessageBoxButtons.YesNoCancel);
+            return dialogResult.ToString();
+        }
+
+        public void SetRefreshView(bool refresh)
+        {
+            refreshView = refresh;
+        }
+
         private void Btn_SaveSettings_Click(object sender, EventArgs e)
         {
             presenter.Btn_SaveSettings_Click();
@@ -118,6 +162,27 @@ namespace Triggleh
         private void Btn_ResetGlobalLastTriggered_Click(object sender, EventArgs e)
         {
             presenter.Btn_ResetGlobalLastTriggered_Click();
+        }
+
+        private void Btn_Export_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_Export_Click();
+        }
+
+        private void Btn_Import_Click(object sender, EventArgs e)
+        {
+            presenter.Btn_Import_Click();
+        }
+
+        private void Btn_Login_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            if (loginForm.ShowDialog() == DialogResult.Cancel)
+            {
+                Username = loginForm.username;
+                UserID = loginForm.user_id;
+                connectToChat = true;
+            }
         }
     }
 }

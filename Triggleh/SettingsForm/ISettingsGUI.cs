@@ -14,6 +14,7 @@ namespace Triggleh
 
         string Application { get; }
         string Username { get; set; }
+        string UserID { get; set; }
         int GlobalCooldown { get; set; }
         int GlobalCooldownUnit { get; set; }
         bool LoggingEnabled { get; set; }
@@ -25,5 +26,9 @@ namespace Triggleh
         void AddApplication(string name);
         int GetApplicationIndex(string name);
         void ShowHelpMessage(string message, string title);
+        void ShowExportFileDialog(string data);
+        string ShowImportFileDialog();
+        void SetRefreshView(bool refresh);
+        string ShowImportConfirmation();
     }
 }

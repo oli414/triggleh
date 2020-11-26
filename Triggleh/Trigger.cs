@@ -39,6 +39,9 @@ namespace Triggleh
         public bool UserLevelSubs { get; set; }
 
         [Required]
+        public bool UserLevelVips { get; set; }
+
+        [Required]
         public bool UserLevelMods { get; set; }
 
 
@@ -61,5 +64,9 @@ namespace Triggleh
         public int CooldownUnit { get; set; }
 
         public DateTime LastTriggered { get; set; }
+
+
+        [MaxLength(45)]
+        public string RewardName { get; set; }
     }
 }

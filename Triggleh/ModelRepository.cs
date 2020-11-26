@@ -32,12 +32,14 @@ namespace Triggleh
                     BitsAmount2 = trigger.BitsAmount2,
                     UserLevelEveryone = trigger.UserLevelEveryone,
                     UserLevelSubs = trigger.UserLevelSubs,
+                    UserLevelVips = trigger.UserLevelVips,
                     UserLevelMods = trigger.UserLevelMods,
                     Keywords = trigger.Keywords,
                     CharAnimTriggerKeyChar = trigger.CharAnimTriggerKeyChar,
                     CharAnimTriggerKeyValue = trigger.CharAnimTriggerKeyValue,
                     Cooldown = trigger.Cooldown,
-                    CooldownUnit = trigger.CooldownUnit
+                    CooldownUnit = trigger.CooldownUnit,
+                    RewardName = trigger.RewardName
             });
 
                 context.SaveChanges();
@@ -74,16 +76,36 @@ namespace Triggleh
                 triggerToUpdate.BitsAmount2 = triggerData.BitsAmount2;
                 triggerToUpdate.UserLevelEveryone = triggerData.UserLevelEveryone;
                 triggerToUpdate.UserLevelSubs = triggerData.UserLevelSubs;
+                triggerToUpdate.UserLevelVips = triggerData.UserLevelVips;
                 triggerToUpdate.UserLevelMods = triggerData.UserLevelMods;
                 triggerToUpdate.Keywords = triggerData.Keywords;
                 triggerToUpdate.CharAnimTriggerKeyChar = triggerData.CharAnimTriggerKeyChar;
                 triggerToUpdate.CharAnimTriggerKeyValue = triggerData.CharAnimTriggerKeyValue;
                 triggerToUpdate.Cooldown = triggerData.Cooldown;
                 triggerToUpdate.CooldownUnit = triggerData.CooldownUnit;
+                triggerToUpdate.RewardName = triggerData.RewardName;
 
                 // need to ensure trigger is updated
                 context.SaveChanges();
             }
+        }
+
+        private Trigger PatchTrigger(Trigger trigger)
+        {
+            Trigger triggerExists = GetTriggerByName(trigger.Name);
+            if (triggerExists != null)
+            {
+                int i = 1;
+                while (GetTriggerByName(trigger.Name) != null)
+                {
+                    trigger.Name = $"{triggerExists.Name}_{i}";
+                    i++;
+                }
+            }
+            
+            trigger.UserLevelVips = trigger.UserLevelVips ? trigger.UserLevelVips : false;
+            trigger.RewardName = trigger.RewardName ?? "";
+            return trigger;
         }
 
         public void RemoveTrigger(string triggerName)
@@ -133,6 +155,16 @@ namespace Triggleh
             }
         }
 
+        public void ImportTriggers(List<Trigger> triggers)
+        {
+            using (Model context = new Model())
+            {
+                List<Trigger> patchedTriggers = triggers.Select(trigger => PatchTrigger(trigger)).ToList<Trigger>();
+                context.Triggers.AddRange(patchedTriggers);
+                context.SaveChanges();
+            }
+        }
+
 
         // SETTINGS
 
@@ -157,6 +189,7 @@ namespace Triggleh
                     {
                         Application = settingToSet.Application,
                         Username = settingToSet.Username,
+                        UserID = settingToSet.UserID,
                         ProfilePicture = settingToSet.ProfilePicture,
                         GlobalCooldown = settingToSet.GlobalCooldown,
                         GlobalCooldownUnit = settingToSet.GlobalCooldownUnit,
@@ -168,6 +201,7 @@ namespace Triggleh
                     Setting mainSettings = settings.First<Setting>();
                     mainSettings.Application = settingToSet.Application;
                     mainSettings.Username = settingToSet.Username;
+                    mainSettings.UserID = settingToSet.UserID;
                     mainSettings.ProfilePicture = settingToSet.ProfilePicture;
                     mainSettings.GlobalCooldown = settingToSet.GlobalCooldown;
                     mainSettings.GlobalCooldownUnit = settingToSet.GlobalCooldownUnit;
